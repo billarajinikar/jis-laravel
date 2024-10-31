@@ -2,10 +2,21 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FAQController;
 
-Route::get('/', function () {
+
+
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/', [HomeController::class, 'homePageData'])->name('homePageData');;
+Route::get('/faqs', [FAQController::class, 'allFaqs'])->name('faqs');
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
