@@ -8,8 +8,8 @@ class HomeController extends Controller
         $categories = [
             ['name' => 'IT/Software Jobs', 'image' => 'images/categories/it-software-jobs.png', 'link' => '/cat/it-software-jobs'],
             ['name' => 'Internships', 'image' => 'images/categories/internships.png', 'link' => '/cat/internships'],
-            ['name' => 'Teaching Jobs', 'image' => 'images/categories/teaching-Jobs.png', 'link' => '/cat/teaching-jobs'],
-            ['name' => 'Cleaning Jobs', 'image' => 'images/categories/cleaning-Jobs.png', 'link' => '/cat/cleaning-jobs'],
+            ['name' => 'Teaching Jobs', 'image' => 'images/categories/teaching-jobs.png', 'link' => '/cat/teaching-jobs'],
+            ['name' => 'Cleaning Jobs', 'image' => 'images/categories/cleaning-jobs.png', 'link' => '/cat/cleaning-jobs'],
             ['name' => 'Babysitting Jobs', 'image' => 'images/categories/babysitting-jobs.png', 'link' => '/cat/babysitting-jobs'],
             ['name' => 'Other Jobs', 'image' => 'images/categories/other-jobs.png', 'link' => '/cat/other-jobs'],
         ];
