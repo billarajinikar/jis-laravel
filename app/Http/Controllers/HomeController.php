@@ -1,17 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\FAQ;
+use App\Models\BlogPost;
 
 class HomeController extends Controller
 {
     public function homePageData() {
         $categories = [
             ['name' => 'IT/Software Jobs', 'image' => 'images/categories/it-software-jobs.png', 'link' => '/cat/it-software-jobs'],
-            ['name' => 'Internships', 'image' => 'images/categories/internships.png', 'link' => '/cat/internships'],
-            ['name' => 'Teaching Jobs', 'image' => 'images/categories/teaching-jobs.png', 'link' => '/cat/teaching-jobs'],
-            ['name' => 'Cleaning Jobs', 'image' => 'images/categories/cleaning-jobs.png', 'link' => '/cat/cleaning-jobs'],
-            ['name' => 'Babysitting Jobs', 'image' => 'images/categories/babysitting-jobs.png', 'link' => '/cat/babysitting-jobs'],
-            ['name' => 'Other Jobs', 'image' => 'images/categories/other-jobs.png', 'link' => '/cat/other-jobs'],
+            ['name' => 'Internships', 'image' => 'images/categories/internships.png', 'link' => '/cat/internships/'],
+            ['name' => 'Teaching Jobs', 'image' => 'images/categories/teaching-jobs.png', 'link' => '/cat/teaching-jobs/'],
+            ['name' => 'Cleaning Jobs', 'image' => 'images/categories/cleaning-jobs.png', 'link' => '/cat/cleaning-jobs/'],
+            ['name' => 'Babysitting Jobs', 'image' => 'images/categories/babysitting-jobs.png', 'link' => '/cat/babysitting-jobs/'],
+            ['name' => 'Other Jobs', 'image' => 'images/categories/other-jobs.png', 'link' => '/cat/other-jobs/'],
         ];
         $cities = [
             ['name' => 'Stockholm', 'image' => 'images/cities/stockholm.png', 'link' => '/city/stockholm'],
@@ -27,7 +28,9 @@ class HomeController extends Controller
             ['name' => 'Jonköping', 'image' => 'images/cities/jonkoping.png', 'link' => '/city/jonköping'],
             ['name' => 'Kiruna', 'image' => 'images/cities/kiruna.png', 'link' => '/city/kiruna'],
         ];
-        $faqs = FAQ::latest()->take(8)->get();
-        return view('home', compact('categories', 'cities', 'faqs'));
+        $faqs = FAQ::latest()->take(6)->get();
+        $posts = BlogPost::orderBy('published_at', 'desc')->select('title', 'slug')->get();
+
+        return view('home', compact('categories', 'cities', 'faqs', 'posts'));
     }
 }

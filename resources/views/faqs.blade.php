@@ -14,9 +14,9 @@
             <div class="accordion" id="allFaqAccordion">
                 @foreach($faqs as $index => $faq)
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="allHeading{{ $index }}">
+                        <h2 style="font-color:20px" class="accordion-header" id="allHeading{{ $index }}">
                             <button class="accordion-button {{ $index != 0 ? 'collapsed' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#allCollapse{{ $index }}" aria-expanded="{{ $index == 0 ? 'true' : 'false' }}" aria-controls="allCollapse{{ $index }}">
-                                {{ $faq->question }}
+                                <b>{{ $faq->question }}</b>
                             </button>
                         </h2>
                         <div id="allCollapse{{ $index }}" class="accordion-collapse collapse {{ $index == 0 ? 'show' : '' }}" aria-labelledby="allHeading{{ $index }}" data-bs-parent="#allFaqAccordion">

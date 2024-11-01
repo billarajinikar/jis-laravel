@@ -8,7 +8,7 @@ class FAQController extends Controller
 {
     public function index()
     {
-        $faqs = FAQ::latest()->take(8)->get(); // Fetch the latest 8 FAQs
+        $faqs = FAQ::latest()->take(6)->get(); // Fetch the latest 8 FAQs
         return view('home', compact('faqs'));
     }
 

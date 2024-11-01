@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FAQController;
-
+use App\Http\Controllers\BlogPostController;
+use App\Http\Controllers\JobController;
 
 
 Route::get('/welcome', function () {
@@ -12,8 +13,13 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/', [HomeController::class, 'homePageData'])->name('homePageData');;
-Route::get('/faqs', [FAQController::class, 'allFaqs'])->name('faqs');
+Route::get('/faqs', action: [FAQController::class, 'allFaqs'])->name('faqs');
+Route::get('/cat/{slug}/{page?}', action: [JobController::class, 'jobListByCategory'])->name('jobList');
+Route::get('/job/{title}/{id}', action: [JobController::class, 'showJob'])->name('jobs.show');
 
+
+Route::get('/blog', [BlogPostController::class, 'index'])->name('blog');
+Route::get('/blog/{slug}', action: [BlogPostController::class, 'show'])->name('blog.show');
 
 
 
