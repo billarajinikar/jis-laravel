@@ -63,6 +63,5 @@
             @include('blog.titles', ['posts' => $posts])
         </div>
             <div class="col-md-6">@include('sections.similarjobs', ['similarJobs' => $similarJobs])</div>
-        </div>
     </div>
 @endsection

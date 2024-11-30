@@ -11,17 +11,37 @@ use App\Http\Controllers\JobController;
 Route::get('/welcome', function () {
     return view('welcome');
 });
+Route::get('/about-us', function () {
+    return view('about-us');
+});
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+});
+Route::get('/contact-us', function () {
+    return view('contact-us');
+});
 
 Route::get('/', [HomeController::class, 'homePageData'])->name('homePageData');;
 Route::get('/faqs', action: [FAQController::class, 'allFaqs'])->name('faqs');
-Route::get('/cat/{slug}/{page?}', action: [JobController::class, 'jobListByCategory'])->name('jobList');
-Route::get('/job/{title}/{id}', action: [JobController::class, 'showJob'])->name('jobs.show');
+Route::get('/find-a-job', action: [JobController::class, 'findaJob'])->name('jobList');
+Route::get('/ask-me', action: [FAQController::class, 'allFaqs'])->name('faqs');
+Route::post('/ask-me', [FAQController::class, 'askQuestion'])->name('askme');
+Route::get('/ask-me/{id}/{title}', action: [FAQController::class, 'answerPage'])->name('answerPage');
 
+Route::post('/cast-vote', [FAQController::class, 'store'])->name('cast-vote');
+
+
+
+Route::get('/cat/{slug}/{page?}', action: [JobController::class, 'jobListByCategory'])->name('jobList');
+Route::get('/city/{slug}/{page?}', action: [JobController::class, 'jobListByCity'])->name('jobListCity');
+Route::get('/job/{title}/{id}', action: [JobController::class, 'showJob'])->name('jobs.show');
+Route::get('/search/{keyword}/{city}/{page?}', action: [JobController::class, 'jobsBySearch'])->name('jobSearch');
 
 Route::get('/blog', [BlogPostController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', action: [BlogPostController::class, 'show'])->name('blog.show');
 
-
+Route::get('/search', [HomeController::class, 'searchBox'])->name('search');
+Route::get('/find-a-job-in-sweden', [HomeController::class, 'findAJob'])->name('find-a-job');
 
 
 Route::get('/dashboard', function () {
