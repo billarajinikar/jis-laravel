@@ -82,7 +82,11 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
         <div id="app">
             <!-- Navigation -->
             @include('layouts.navigation')
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8349643691635774"
+            
+            <!-- Main Content -->
+            <main class="content py-4">
+                <div class="container">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8349643691635774"
      crossorigin="anonymous"></script>
 <!-- HorizontalDipsplayAds -->
 <ins class="adsbygoogle"
@@ -94,9 +98,6 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-            <!-- Main Content -->
-            <main class="content py-4">
-                <div class="container">
                     @yield('content')
                 </div>
             </main>
