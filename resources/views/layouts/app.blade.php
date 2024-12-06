@@ -86,6 +86,7 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
             <!-- Main Content -->
             <main class="content py-4">
                 <div class="container">
+                    <div class="text-center">
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8349643691635774"
      crossorigin="anonymous"></script>
 <!-- HorizontalDipsplayAds -->
@@ -98,6 +99,7 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
                     @yield('content')
                 </div>
             </main>
