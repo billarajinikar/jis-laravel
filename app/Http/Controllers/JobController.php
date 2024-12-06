@@ -55,6 +55,8 @@ class JobController extends Controller
         $pageNumber = intval($page ?? 1);
         $pageNumber = $pageNumber == 0 || $pageNumber == "" ? 1 : $pageNumber;
         $pageNumber = max($pageNumber, 1);
+        $pageTitle = $pageTitle." -".$pageNumber;
+
         $numberOfJobsPerPage = 10;
         $start = $pageNumber * $numberOfJobsPerPage - $numberOfJobsPerPage;
         $end = $numberOfJobsPerPage;
@@ -71,12 +73,12 @@ class JobController extends Controller
     }
     public function jobListByCity($slug, $page=1) {
         $searchKey = "search?q=english+".$slug;
-        $pageTitle = ucfirst($slug)." jobs for English speaking people";
         $pageHeadding = "Jobs in ".ucfirst($slug);
         $pageDescription = "Explore various English-speaking job opportunities in beautiful cities in Sweden.";
         $pageNumber = intval($page ?? 1);
         $pageNumber = $pageNumber == 0 || $pageNumber == "" ? 1 : $pageNumber;
         $pageNumber = max($pageNumber, 1);
+        $pageTitle = ucfirst($slug)." -".$pageNumber." jobs for English speaking people";
         $numberOfJobsPerPage = 10;
         $start = $pageNumber * $numberOfJobsPerPage - $numberOfJobsPerPage;
         $end = $numberOfJobsPerPage;
