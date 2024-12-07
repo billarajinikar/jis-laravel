@@ -7,7 +7,9 @@ use App\Http\Controllers\FAQController;
 use App\Http\Controllers\BlogPostController;
 use App\Http\Controllers\JobController;
 
-
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
 Route::get('/welcome', function () {
     return view('welcome');
 });
