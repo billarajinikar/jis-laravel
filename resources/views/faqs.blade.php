@@ -97,10 +97,12 @@
 </div>
 
 <script>
-    document.getElementById('askForm').addEventListener('submit', function(e) {
+     const askmeRoute = "{{ route('askme') }}";
+     const csrfToken = "{{ csrf_token() }}";
+     document.getElementById('askForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const question = document.getElementById('question').value;
+    const question = document.getElementById('question').value.trim();
     const submitButton = document.getElementById('submitButton');
     const loadingSpinner = document.getElementById('loadingSpinner');
     const answerDiv = document.getElementById('answer');
@@ -110,7 +112,7 @@
     answerDiv.style.display = 'none';
     errorDiv.style.display = 'none';
 
-    if (!question.trim()) {
+    if (!question) {
         errorDiv.style.display = 'block';
         errorDiv.textContent = 'Please enter a question before submitting.';
         return;
@@ -120,26 +122,30 @@
     loadingSpinner.style.display = 'inline-block';
     submitButton.disabled = true;
 
-    fetch('{{ route("askme") }}', {
+    fetch(askmeRoute, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'X-CSRF-TOKEN': csrfToken,
         },
         body: JSON.stringify({ question }),
     })
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then((data) => {
             loadingSpinner.style.display = 'none';
             submitButton.disabled = false;
 
             if (data.answer) {
                 answerDiv.style.display = 'block';
-                answerDiv.innerHTML = `<strong>Answer:</strong> ${data.answer}`;
+                answerDiv.textContent = `Answer: ${data.answer}`;
                 document.getElementById('question').value = ''; // Clear the question field
             } else {
-                errorDiv.style.display = 'block';
-                errorDiv.textContent = 'No answer was returned. Please try again later.';
+                throw new Error('No answer returned.');
             }
         })
         .catch((error) => {
@@ -152,8 +158,6 @@
         });
 });
 
-</script>
-<script>
     function castVote(faqId, voteType) {
     const localStorageKey = `faq-vote-${faqId}`;
     const existingVote = localStorage.getItem(localStorageKey);

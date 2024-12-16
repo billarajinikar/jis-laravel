@@ -52,7 +52,7 @@ class FAQController extends Controller
                 'Content-Type' => 'application/json',
             ],
             'json' => [
-                'model' => 'gpt-4o',
+                'model' => 'gpt-4',
                 'messages' => [
                     [
                         'role' => 'system',
