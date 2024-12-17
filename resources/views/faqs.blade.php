@@ -26,6 +26,29 @@
         background-color: #f8d7da !important; /* Light red */
         color: #721c24 !important; /* Dark red */
     }
+    #answer {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 15px;
+}
+
+#answer ul {
+    padding-left: 20px;
+}
+
+#answer li {
+    margin-bottom: 8px;
+}
+
+#answer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#answer a:hover {
+    text-decoration: underline;
+}
+
 
 </style>
 
@@ -98,7 +121,8 @@
 
 <script>
      const askmeRoute = "{{ route('askme') }}";
-     const csrfToken = "{{ csrf_token() }}";
+     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
      document.getElementById('askForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -142,7 +166,7 @@
 
             if (data.answer) {
                 answerDiv.style.display = 'block';
-                answerDiv.textContent = `Answer: ${data.answer}`;
+                answerDiv.innerHTML = `Answer: ${data.answer}`;
                 document.getElementById('question').value = ''; // Clear the question field
             } else {
                 throw new Error('No answer returned.');
