@@ -118,8 +118,10 @@ class JobController extends Controller
     public function showJob($title, $id) {
         $endPoint = "/ad/" . $id;
         $job = $this->connectJobtechAPI($endPoint);
-        if($job['message'] === "Ad not found") {
-            abort(404);
+        if(!isset($job['id'])) {
+            if($job['message'] === "Ad not found") {
+                abort(404);
+            }
         }
         $jobLocation = $job['workplace_address']['municipality'];
         $pageTitle =
