@@ -20,15 +20,16 @@
     }
 
     .favorites-count {
-        font-size: 12px;
-        background-color: #dc3545; /* Red background */
-        color: white;
-        border-radius: 50%;
-        padding: 0 5px;
-        position: absolute;
-        top: -5px;
-        right: -10px;
-    }
+    font-size: 12px;
+    background-color: #dc3545; /* Red background */
+    color: white;
+    border-radius: 50%;
+    padding: 0 5px;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}
+
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">

@@ -128,5 +128,102 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
 </script>
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const favoritesCountElement = document.getElementById('favorites-count');
+
+    // Function to update the favorites count
+    function updateFavoritesCount() {
+        const favoriteJobs = JSON.parse(localStorage.getItem('favorite_jobs')) || [];
+        const count = favoriteJobs.length;
+
+        if (count > 0) {
+            favoritesCountElement.textContent = count;
+            favoritesCountElement.classList.remove('d-none'); // Show the count
+        } else {
+            favoritesCountElement.textContent = '0';
+            favoritesCountElement.classList.add('d-none'); // Hide the count if no jobs
+        }
+    }
+
+    // Initialize the favorites count on page load
+    updateFavoritesCount();
+
+    // Function to initialize favorite icons
+    function initializeFavoriteIcons() {
+        const favoriteIcons = document.querySelectorAll('.favorite-icon');
+
+        favoriteIcons.forEach(icon => {
+            const jobId = icon.getAttribute('data-job-id');
+            const iconElement = icon.querySelector('i');
+
+            // Function to check if the job is already saved
+            const isFavorite = () => {
+                const favoriteJobs1 = JSON.parse(localStorage.getItem('favorite_jobs')) || [];
+                return favoriteJobs1.some(job => job.id === jobId);
+            };
+
+            // Set the initial icon state based on current favorites
+            let favoriteJobs = JSON.parse(localStorage.getItem('favorite_jobs')) || [];
+            const isCurrentlyFavorite = isFavorite();
+
+            if (isCurrentlyFavorite) {
+                iconElement.classList.add('fas'); // Filled heart
+                iconElement.classList.remove('far'); // Empty heart
+            } else {
+                iconElement.classList.add('far'); // Empty heart
+                iconElement.classList.remove('fas'); // Filled heart
+            }
+
+            // Add click event listener for toggling favorites
+            icon.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const jobTitle = icon.getAttribute('data-job-title');
+                const jobDescription = icon.getAttribute('data-job-description');
+                const jobEmployerName = icon.getAttribute('data-job-employer-name');
+                const jobMunicipality = icon.getAttribute('data-job-municipality');
+                const jobLogoElement = document.getElementById(jobId);
+                const jobLogoUrl = jobLogoElement ? jobLogoElement.src : 'https://via.placeholder.com/150';
+
+                // Re-fetch favorites to ensure the latest state
+                favoriteJobs = JSON.parse(localStorage.getItem('favorite_jobs')) || [];
+                const jobIndex = favoriteJobs.findIndex(job => job.id === jobId);
+
+                if (jobIndex !== -1) {
+                    // Remove from favorites
+                    favoriteJobs.splice(jobIndex, 1);
+                    iconElement.classList.remove('fas');
+                    iconElement.classList.add('far');
+                } else {
+                    // Add the job to favorites
+                    favoriteJobs.push({
+                        id: jobId,
+                        title: jobTitle,
+                        description: jobDescription,
+                        employer_name: jobEmployerName,
+                        municipality: jobMunicipality,
+                        logo_url: jobLogoUrl
+                    });
+                    iconElement.classList.remove('far');
+                    iconElement.classList.add('fas');
+                }
+
+                // Save the updated favorites back to localStorage
+                localStorage.setItem('favorite_jobs', JSON.stringify(favoriteJobs));
+
+                // Update the favorites count
+                updateFavoritesCount();
+            });
+        });
+    }
+
+    // Initialize favorite icons
+    initializeFavoriteIcons();
+});
+
+</script>
     </body>
 </html>
