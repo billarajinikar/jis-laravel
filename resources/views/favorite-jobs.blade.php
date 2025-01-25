@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('title', 'My Favorite Jobs')
 
 @section('content')
@@ -27,7 +28,13 @@
             // Show the list of saved jobs
             let html = '';
             favoriteJobs.forEach(job => {
-                const isFavorite = favoriteJobs.some(favJob => favJob.id === job.id); // Check if the job is in favorites
+                // Generate the job's URL slug
+                let jobTitleSlug = job.title
+                    .replace(/\s+/g, '-') // Replace spaces with hyphens
+                    .replace(/-+/g, '-')  // Replace multiple hyphens with a single hyphen
+                    .toLowerCase();
+
+                const jobUrl = `/job/${jobTitleSlug}/${job.id}/`;
 
                 html += `
                     <div class="card mb-3 shadow-sm">
@@ -38,13 +45,13 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <a href="${job.url}" style="color: #ff5722;">${job.title}</a>
+                                        <a href="${jobUrl}" style="color: #ff5722;">${job.title}</a>
                                     </h5>
                                     <p class="card-text">${job.description}</p>
                                     <p class="card-text">
                                         <small class="text-muted">${job.employer_name} - ${job.municipality}</small>
                                     </p>
-                                    <a href="${job.url}" class="btn btn-primary btn-sm">Read More</a>
+                                    <a href="${jobUrl}" class="btn btn-primary btn-sm">Read More</a>
                                     <!-- Favorite Icon -->
                                     <span class="position-absolute top-0 end-0 m-3">
                                         <a href="#" class="favorite-icon" style="color:#ff5722;" 
@@ -54,7 +61,7 @@
                                             data-job-employer-name="${job.employer_name}"
                                             data-job-municipality="${job.municipality}"
                                         >
-                                            <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i> <!-- Filled or empty heart -->
+                                            <i class="fas fa-heart"></i> <!-- Default state as filled heart -->
                                         </a>
                                     </span>
                                 </div>
@@ -67,12 +74,11 @@
             container.innerHTML = html;
 
             // Add favorite functionality after rendering the HTML
-            initializeFavoriteIcons();
+            //initializeFavoriteIcons();
         }
 
+        // Function to initialize favorite icons
         
     });
 </script>
-
-
 @endsection
