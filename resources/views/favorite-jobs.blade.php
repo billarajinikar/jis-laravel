@@ -70,51 +70,7 @@
             initializeFavoriteIcons();
         }
 
-        function initializeFavoriteIcons() {
-            const favoriteIcons = document.querySelectorAll('.favorite-icon');
-
-            favoriteIcons.forEach(icon => {
-                const jobId = icon.getAttribute('data-job-id');
-                const iconElement = icon.querySelector('i');
-
-                // Add click event listener for toggling favorite
-                icon.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    // Retrieve job details
-                    const jobTitle = icon.getAttribute('data-job-title');
-                    const jobDescription = icon.getAttribute('data-job-description');
-                    const jobEmployerName = icon.getAttribute('data-job-employer-name');
-                    const jobMunicipality = icon.getAttribute('data-job-municipality');
-                    const jobLogoUrl = favoriteJobs.find(job => job.id === jobId)?.logo_url || 'https://via.placeholder.com/150';
-
-                    // Check if the job is already in favorites
-                    const jobIndex = favoriteJobs.findIndex(job => job.id === jobId);
-
-                    if (jobIndex !== -1) {
-                        // Remove from favorites
-                        favoriteJobs.splice(jobIndex, 1);
-                        iconElement.classList.remove('fas');
-                        iconElement.classList.add('far');
-                    } else {
-                        // Add to favorites
-                        favoriteJobs.push({
-                            id: jobId,
-                            title: jobTitle,
-                            description: jobDescription,
-                            employer_name: jobEmployerName,
-                            municipality: jobMunicipality,
-                            logo_url: jobLogoUrl
-                        });
-                        iconElement.classList.remove('far');
-                        iconElement.classList.add('fas');
-                    }
-
-                    // Update localStorage
-                    localStorage.setItem('favorite_jobs', JSON.stringify(favoriteJobs));
-                });
-            });
-        }
+        
     });
 </script>
 
