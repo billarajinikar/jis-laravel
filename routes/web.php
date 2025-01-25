@@ -45,6 +45,9 @@ Route::get('/blog/{slug}', action: [BlogPostController::class, 'show'])->name('b
 Route::get('/search', [HomeController::class, 'searchBox'])->name('search');
 Route::get('/find-a-job-in-sweden', [HomeController::class, 'findAJob'])->name('find-a-job');
 
+Route::get('/my-favorite-jobs', function () {
+    return view('favorite-jobs');
+})->name('favoriteJobs');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

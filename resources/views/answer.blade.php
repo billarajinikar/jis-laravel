@@ -11,7 +11,7 @@
 </style>
 <div class="container py-2"> 
     <div class="py-2 qtn-answer">
-        <h2>{{$qtnRespo['question']}}</h2>
+        <h2 style="color: #ff5722;">{{$qtnRespo['question']}}</h2>
         <p class="answer">{!! $qtnRespo['answer'] !!}</p>
     </div>   
 

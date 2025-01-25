@@ -31,7 +31,7 @@
                     <div class="card h-100 shadow-sm position-relative">
                         <div class="row g-0">
                             <div class="col-md-3 d-flex align-items-center justify-content-center">
-                                <img src="{{ $job['logo_url'] ?? 'https://via.placeholder.com/150' }}" class="img-fluid rounded-start p-3" alt="{{ $jobTitle }}">
+                                <img id="{{$jobId}}" src="{{ $job['logo_url'] ?? 'https://via.placeholder.com/150' }}" class="img-fluid rounded-start p-3" alt="{{ $jobTitle }}">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body d-flex flex-column">
@@ -43,17 +43,19 @@
                             </div>
                         </div>
                         <!-- Favorite Icon -->
-                        <span class="position-absolute top-0 end-0 m-3">
-                            <a href="#" class="favorite-icon" style="color:#808080" 
-                                data-job-id="{{ $jobId }}"
-                                data-job-title ="{{$jobTitle}}"
-                                data-job-description ="{{$listDesciption}}"
-                                data-job-employer-name ="{{$employerName}}"
-                                data-job-municipality ="{{$municipality}}"
-                            >
-                                <!-- <i class="fas fa-heart"></i> -->
-                            </a>
-                        </span>
+                        <!-- Favorite Icon -->
+<span class="position-absolute top-0 end-0 m-3">
+    <a href="#" class="favorite-icon" style="color:#ff5722" 
+        data-job-id="{{ $jobId }}"
+        data-job-title ="{{$jobTitle}}"
+        data-job-description ="{{$listDesciption}}"
+        data-job-employer-name ="{{$employerName}}"
+        data-job-municipality ="{{$municipality}}"
+    >
+        <i class="far fa-heart"></i> <!-- Start with the "far" class -->
+    </a>
+</span>
+
                     </div>
                 </div>
             @endforeach
@@ -106,43 +108,77 @@
 @endsection
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-    const favoriteIcons = document.querySelectorAll('.favorite-icon');
-    let favoriteJobs = JSON.parse(localStorage.getItem('favorite_jobs')) || [];
+    document.addEventListener('DOMContentLoaded', function () {
+        const favoriteIcons = document.querySelectorAll('.favorite-icon');
 
-    favoriteIcons.forEach(icon => {
-    const jobId = icon.getAttribute('data-job-id');
-    const iconElement = icon.querySelector('i');
+        // Retrieve the existing favorite jobs from localStorage
+        let favoriteJobs = JSON.parse(localStorage.getItem('favorite_jobs')) || [];
 
-    // Set initial icon state
-    if (favoriteJobs.includes(jobId)) {
-        iconElement.classList.add('fas');
-        iconElement.classList.remove('far');
-    } else {
-        iconElement.classList.add('far');
-        iconElement.classList.remove('fas');
-    }
+        // Initialize the icon state based on the saved jobs in localStorage
+        favoriteIcons.forEach(icon => {
+            console.log('Hello2');
 
-    // Add click event listener
-    icon.addEventListener('click', function(e) {
-        e.preventDefault();
+            const jobId = icon.getAttribute('data-job-id');
+            const iconElement = icon.querySelector('i'); // Get the <i> element inside the favorite-icon
 
-        if (favoriteJobs.includes(jobId)) {
-            // Remove from favorites
-            favoriteJobs = favoriteJobs.filter(id => id !== jobId);
-            iconElement.classList.remove('fas');
-            iconElement.classList.add('far');
-        } else {
-            // Add to favorites
-            favoriteJobs.push(jobId);
-            iconElement.classList.remove('far');
-            iconElement.classList.add('fas');
-        }
+            // Check if the job is already saved in localStorage
+            if (favoriteJobs.some(job => job.id === jobId)) {
+                iconElement.classList.add('fas'); // Filled heart
+                iconElement.classList.remove('far'); // Empty heart
+            } else {
+                iconElement.classList.add('far'); // Empty heart
+                iconElement.classList.remove('fas'); // Filled heart
+            }
 
-        // Update local storage
-        localStorage.setItem('favorite_jobs', JSON.stringify(favoriteJobs));
-    });
-});
+            // Add click event listener for toggling the favorite state
+            icon.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const jobTitle = icon.getAttribute('data-job-title');
+                const jobDescription = icon.getAttribute('data-job-description');
+                const jobEmployerName = icon.getAttribute('data-job-employer-name');
+                const jobMunicipality = icon.getAttribute('data-job-municipality');
+                const jobLogoElement = document.getElementById(jobId); // Select the <img> by its ID
+                const jobLogoUrl = jobLogoElement ? jobLogoElement.src : 'https://via.placeholder.com/150';
+                let jobTitleSlug = jobTitle
+                    .replace(/\s+/g, '-') // Replace spaces with hyphens
+                    .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
+
+                // Convert to lowercase for consistency (optional)
+                jobTitleSlug = jobTitleSlug.toLowerCase();
+                const jobUrl = `/job/${jobTitleSlug}/${jobId}/`;
+
+                const jobIndex = favoriteJobs.findIndex(job => job.id === jobId);
+
+                if (jobIndex !== -1) {
+                    // Job is already in favorites, remove it
+                    favoriteJobs.splice(jobIndex, 1);
+                    iconElement.classList.remove('fas');
+                    iconElement.classList.add('far');
+                } else {
+                    // Job is not in favorites, add it
+                    favoriteJobs.push({
+                        id: jobId,
+                        title: jobTitle,
+                        description: jobDescription,
+                        employer_name: jobEmployerName,
+                        municipality: jobMunicipality,
+                        logo_url: jobLogoUrl,
+                        url: jobUrl
+                    });
+                    iconElement.classList.remove('far');
+                    iconElement.classList.add('fas');
+                }
+
+                // Update the favorite jobs in localStorage
+                localStorage.setItem('favorite_jobs', JSON.stringify(favoriteJobs));
+
+                // Debugging: Log the updated favorite jobs
+                console.log('Updated Favorite Jobs:', favoriteJobs);
+            });
+        });
     });
 </script>
+
+
+

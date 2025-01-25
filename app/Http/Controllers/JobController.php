@@ -143,5 +143,14 @@ class JobController extends Controller
     public function findaJob() {
 
     }
+    public function myFavoriteJobs(Request $request)
+    {
+        // Get saved jobs from the request (sent via JavaScript)
+        $favoriteJobs = $request->input('favoriteJobs', []);
+
+        return view('favorite-jobs', [
+            'favoriteJobs' => $favoriteJobs,
+        ]);
+    }
     
 }
