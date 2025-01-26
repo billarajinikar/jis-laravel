@@ -6,7 +6,7 @@
                 <div class="card category-card border-0 shadow-sm">
                     <div class="position-relative">
                         <a href="{{ $category['link'] }}">
-                            <img src="{{ asset($category['image']) }}" class="card-img-top" alt="{{ $category['name'] }}">
+                            <img loading="lazy" src="{{ asset($category['image']) }}" class="card-img-top" alt="{{ $category['name'] }}">
                             <div class="category-overlay">
                                 <h4 class="category-title">{{ $category['name'] }}</h4>
                             </div>

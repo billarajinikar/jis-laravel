@@ -72,11 +72,30 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
             }
 
             footer {
-                background-color: #343a40;
-                color: white;
-                text-align: center;
-                padding: 1rem 0;
-            }
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ff5722; /* Add your brand color */
+}
+
+footer i {
+    transition: transform 0.3s ease;
+}
+
+footer i:hover {
+    transform: scale(1.2);
+}
+
         </style>
     </head>
     <body>
@@ -88,6 +107,10 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
             <main class="content py-4">
                 <div class="container">
                     <div class="text-center">
+                
+</div>
+                    @yield('content')
+                </div>
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8349643691635774"
      crossorigin="anonymous"></script>
 <!-- HorizontalDipsplayAds -->
@@ -100,22 +123,52 @@ window.__h82AlnkH6D91__("WyJwdWItODM0OTY0MzY5MTYzNTc3NCIsW251bGwsbnVsbCxudWxsLCJ
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
-                    @yield('content')
-                </div>
             </main>
 
             <!-- Footer -->
             <footer>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-md-4"><a href="/about-us">About Us</a></div>
-                        <div class="col-md-4"><a href="/contact-us">Contact Us</a></div>
-                        <div class="col-md-4"><a href="/privacy-policy">Privacy policy</a></div>
-                    </div>
+    <div class="container text-center py-4">
+        <div class="row">
+            <!-- Footer Navigation Links -->
+            <div class="col-md-4 mb-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/about-us" class="text-white">About Us</a></li>
+                    <li><a href="/contact-us" class="text-white">Contact Us</a></li>
+                    <li><a href="/privacy-policy" class="text-white">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <div>
+                    <a href="https://www.facebook.com/jobsinswedense" target="_blank" class="text-white me-3">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="https://www.instagram.com/jobs_in_sweden/" target="_blank" class="text-white me-3">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/jobs-in-sweden-for-english-speaking-people/" target="_blank" class="text-white">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
                 </div>
-                <div class="container text-center">&copy; {{ date('Y') }} JobsinSweden</div>
-            </footer>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="col-md-4 mb-3">
+                <h5>Contact Us</h5>
+                <p>Email: <a href="mailto:info@jobsinsweden.se" class="text-white">info@jobsinsweden.se</a></p>
+            </div>
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="mt-4">
+            <p class="mb-0">&copy; {{ date('Y') }} JobsinSweden. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
         </div>
         <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FV0LQJXTWV"></script>

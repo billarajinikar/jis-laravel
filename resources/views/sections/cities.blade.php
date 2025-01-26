@@ -9,7 +9,7 @@
                 <div class="card city-card border-0 shadow-sm">
                     <div class="position-relative">
                         <a href="{{ $city['link'] }}">
-                            <img src="{{ asset($city['image']) }}" class="card-img-top" alt="{{ $city['name'] }}">
+                            <img loading="lazy" src="{{ asset($city['image']) }}" class="card-img-top" alt="{{ $city['name'] }}">
                             <div class="city-overlay">
                                 <h4 class="city-title">{{ $city['name'] }}</h4>
                             </div>

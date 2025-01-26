@@ -47,10 +47,17 @@
                         </div>
                         <!-- Favorite Icon -->
                         <span class="position-absolute top-0 end-0 m-3">
-                            <a href="#" class="favorite-icon" style="color:#808080" data-job-id="{{ $jobId }}">
-                                <i class="fas fa-heart"></i>
+                            <a href="#" class="favorite-icon" style="color:#ff5722" 
+                                data-job-id="{{ $jobId }}"
+                                data-job-title ="{{$jobTitle}}"
+                                data-job-description ="{{$listDesciption}}"
+                                data-job-employer-name ="{{$employerName}}"
+                                data-job-municipality ="{{$municipality}}"
+                            >
+                                <i class="far fa-heart"></i> <!-- Start with the "far" class -->
                             </a>
                         </span>
+                        
                     </div>
                 </div>
             @endforeach
@@ -99,29 +106,5 @@
             </nav>
         </div>
     </div>
-
-
-        
-    </div>
 @endsection
 
-@section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const favoriteIcons = document.querySelectorAll('.favorite-icon');
-            favoriteIcons.forEach(icon => {
-                icon.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const jobId = this.getAttribute('data-job-id');
-                    
-                    // Toggle the favorite state (for demonstration purposes, it just toggles class)
-                    this.querySelector('i').classList.toggle('fas');
-                    this.querySelector('i').classList.toggle('far');
-                    
-                    // You can add an AJAX request here to save/remove the favorite job in your backend
-                    console.log('Job favorited:', jobId);
-                });
-            });
-        });
-    </script>
-@endsection

@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Find English Speaking Jobs in Stockholm, Gothenburg, and Malmö | Jobs in Sweden')
+<title>Find English Speaking Jobs in Stockholm, Gothenburg, and Malmö, Sweden</title>
+<meta name="description" content="Explore the best English-speaking jobs in Stockholm, Gothenburg, Malmö, and more. Find your next career opportunity in Sweden!">
 @section('meta')
     <meta name="description" content="Discover English speaking jobs in Stockholm, Gothenburg, Malmö, and across Sweden. Explore opportunities in IT, engineering, customer support, and more. Start your career in Sweden today!">
     <meta name="keywords" content="English speaking jobs, Stockholm jobs, Gothenburg jobs, Malmö jobs, jobs in Sweden, international jobs Sweden, IT jobs Sweden, customer support Sweden">
@@ -22,12 +23,12 @@
 
 
 @section('content')
-    <div class="container mt-2 mb-5">
-        <div class="text-center mb-4">
-            <h1>Welcome to JobsinSweden.se</h1>
-            <p>Welcome to JobsinSweden.se, where you can find many job opportunities to help grow your career. Whether you’re just starting, building your skills, or looking for a fresh start, our platform connects you to jobs across Sweden’s top industries. Begin exploring today and take the next step toward your future in Sweden! </p>
-        </div>
+    <div class="hero-section text-center bg-light py-5">
+        <h1 style="color: #ff5722;">Welcome to JobsinSweden.se</h1>
+        <p class="mb-4">Discover thousands of English-speaking job opportunities across Sweden. Start your career journey today!</p>
+        @include('sections.home-searchbox')
     </div>
+
     <div class="container mt-2 mb-5">
         <div class="text-center mb-4">
             @include('sections.categories', ['categories' => $categories])

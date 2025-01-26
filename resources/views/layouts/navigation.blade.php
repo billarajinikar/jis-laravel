@@ -3,7 +3,10 @@
         font-size: 16px;
         font-weight: 500;
     }
-
+    .nav-item {
+        margin-left:10px;
+        margin-right:10px;
+    }
     .nav-link {
         color: #555 !important; /* Default text color */
         transition: color 0.3s ease;
@@ -19,16 +22,59 @@
         border-bottom: 2px solid #007bff; /* Optional underline for active link */
     }
 
-    .favorites-count {
+   
+
+.nav-link {
+    color: #555 !important; /* Default text color */
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+}
+
+.nav-link i.fas.fa-heart {
+    color: #dc3545 !important; /* Always red heart icon */
+    margin-right: 5px; /* Add some space between the icon and text */
+}
+
+.nav-link:hover i.fas.fa-heart {
+    color: #dc3545 !important; /* Prevent hover color change for the heart icon */
+}
+
+.favorites-count {
     font-size: 12px;
     background-color: #dc3545; /* Red background */
     color: white;
     border-radius: 50%;
     padding: 0 5px;
     position: absolute;
-    top: -5px;
-    right: -10px;
+    top: 0;
+    right: 0;
 }
+
+.nav-item.position-relative {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .favorites-count {
+        transform: translate(0, 0); /* Reset transform for mobile */
+        top: -5px;
+        right: -10px;
+        position: relative;
+    }
+}
+@media (max-width: 320px) {
+    .favorites-count {
+        transform: translate(0, 0); /* Reset transform for mobile */
+        top: -5px;
+        right: -10px;
+        position: relative;
+    }
+}
+
 
 </style>
 
@@ -58,7 +104,7 @@
                 </li>
                 <li class="nav-item position-relative">
                     <a class="nav-link {{ request()->is('my-favorite-jobs') ? 'active' : '' }}" href="{{ url('/my-favorite-jobs') }}">
-                        <i class="fas fa-heart"></i> My Favorites
+                        <i class="fas fa-heart"></i> My Favorite Jobs
                         <span id="favorites-count" class="favorites-count d-none">0</span>
                     </a>
                 </li>

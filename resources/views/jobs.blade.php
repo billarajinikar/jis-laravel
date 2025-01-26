@@ -31,7 +31,7 @@
                     <div class="card h-100 shadow-sm position-relative">
                         <div class="row g-0">
                             <div class="col-md-3 d-flex align-items-center justify-content-center">
-                                <img id="{{$jobId}}" src="{{ $job['logo_url'] ?? 'https://via.placeholder.com/150' }}" class="img-fluid rounded-start p-3" alt="{{ $jobTitle }}">
+                                <img id="{{$jobId}}" src="{{ $job['logo_url'] ?? 'https://via.placeholder.com/150' }}" class="img-fluid rounded-start p-3" alt="{{ $jobTitle }}" loading="lazy">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body d-flex flex-column">
@@ -43,18 +43,17 @@
                             </div>
                         </div>
                         <!-- Favorite Icon -->
-                        <!-- Favorite Icon -->
-<span class="position-absolute top-0 end-0 m-3">
-    <a href="#" class="favorite-icon" style="color:#ff5722" 
-        data-job-id="{{ $jobId }}"
-        data-job-title ="{{$jobTitle}}"
-        data-job-description ="{{$listDesciption}}"
-        data-job-employer-name ="{{$employerName}}"
-        data-job-municipality ="{{$municipality}}"
-    >
-        <i class="far fa-heart"></i> <!-- Start with the "far" class -->
-    </a>
-</span>
+                        <span class="position-absolute top-0 end-0 m-3">
+                            <a href="#" class="favorite-icon" style="color:#ff5722" 
+                                data-job-id="{{ $jobId }}"
+                                data-job-title ="{{$jobTitle}}"
+                                data-job-description ="{{$listDesciption}}"
+                                data-job-employer-name ="{{$employerName}}"
+                                data-job-municipality ="{{$municipality}}"
+                            >
+                                <i class="far fa-heart"></i> <!-- Start with the "far" class -->
+                            </a>
+                        </span>
 
                     </div>
                 </div>
