@@ -8,7 +8,7 @@
         </div>
         @include('sections.searchbox', ['cities' => $cities])
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            @foreach ($jobs as $job)
+            @foreach ($jobs as $index => $job)
                 <?php 
                     $jobId = $job["id"];
                     $jobLogoUrl = $job["logo_url"];
@@ -27,6 +27,29 @@
                     $jobInfoUrl = "/job/" . $urlTitle . "/" . $jobId."/";
                     $cityUrl = "/city/" . $municipality."/";
                 ?>
+                <!-- Inject Google Ad after the 2nd and 5th job cards -->
+                @if($index === 2 || $index === 6)
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <!-- Google Ads Code -->
+                                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8349643691635774"
+                                    crossorigin="anonymous"></script>
+                                <ins class="adsbygoogle"
+                                    style="display:block"
+                                    data-ad-format="fluid"
+                                    data-ad-layout-key="-f6+3e+bp-9k-bu"
+                                    data-ad-client="ca-pub-8349643691635774"
+                                    data-ad-slot="1099685050"></ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Job Card -->
                 <div class="col">
                     <div class="card h-100 shadow-sm position-relative">
                         <div class="row g-0">
@@ -54,7 +77,6 @@
                                 <i class="far fa-heart"></i> <!-- Start with the "far" class -->
                             </a>
                         </span>
-
                     </div>
                 </div>
             @endforeach
@@ -65,9 +87,26 @@
                     <?php 
                         $route = ($pageType==='cat') ?'jobList':'jobListCity';
                     ?>
+                    <script type="application/ld+json">
+                        {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            @for ($i = 1; $i <= $totalPages; $i++)
+                            {
+                            "@type": "ListItem",
+                            "position": {{ $i }},
+                            "name": "Page {{ $i }}",
+                            "item": "{{ route($route, ['slug' => $slug, 'page' => $i]) }}"
+                            }{{ $i < $totalPages ? ',' : '' }}
+                            @endfor
+                        ]
+                        }
+                    </script>
+
                     @if($page > 1)
                         <li class="page-item">
-                            <a class="page-link" href="{{ route($route, ['slug' => $slug, 'page' => $page - 1]) }}" aria-label="Previous">
+                            <a rel="prev" class="page-link" href="{{ route($route, ['slug' => $slug, 'page' => $page - 1]) }}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
@@ -95,7 +134,7 @@
                     @endif
                     @if($page < $totalPages)
                         <li class="page-item">
-                            <a class="page-link" href="{{ route($route, ['slug' => $slug, 'page' => $page + 1]) }}" aria-label="Next">
+                            <a rel="next" class="page-link" href="{{ route($route, ['slug' => $slug, 'page' => $page + 1]) }}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -105,7 +144,3 @@
         </div>
     </div>
 @endsection
-
-
-
-

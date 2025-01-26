@@ -18,40 +18,38 @@ class JobController extends Controller
         return $response->json();
     }
     public function jobListByCategory($slug, $page=1) {
-        if($slug === "it-software-jobs") {
+        if ($slug === "it-software-jobs") {
             $searchKey = "search?q=IT+softwaredeveloper+programmer+english";
-            $pageTitle = "IT/Software jobs in Sweden";
-            $pageHeadding = "IT/Software jobs in Sweden";
-            $pageDescription = "Find the best English-speaking IT and Software jobs in Sweden. From developers to system administrators, explore opportunities that suit your skillset.";
-        } else if($slug === "internships") {
+            $pageTitle = "Top IT and Software Jobs in Sweden - English-Speaking Roles";
+            $pageHeadding = "Find IT and Software Jobs in Sweden";
+            $pageDescription = "Discover high-paying IT and software jobs in Sweden for English-speaking professionals. From developers to IT support roles, start your tech career today.";
+        } else if ($slug === "internships") {
             $searchKey = "search?q=Internship";
-            $pageTitle = "Inernships";
-            $pageHeadding = "Inernships";
-            $pageDescription = "Discover exciting English-speaking internships in Sweden. Gain valuable experience and kickstart your career with the right opportunities.";
-        }
-        else if($slug === "teaching-jobs") {
+            $pageTitle = "Internship Opportunities in Sweden - Kickstart Your Career";
+            $pageHeadding = "Explore Internships in Sweden";
+            $pageDescription = "Search for exciting English-speaking internships in Sweden. Gain hands-on experience, develop new skills, and grow your career with top organizations.";
+        } else if ($slug === "teaching-jobs") {
             $searchKey = "search?q=teaching";
-            $pageTitle = "Teaching jobs in Sweden";
-            $pageHeadding = "Teaching jobs in Sweden";
-            $pageDescription = "Explore English-speaking teaching jobs across Sweden. Whether you specialize in early education or higher education, find your next teaching role here.";
-        }
-        else if($slug === "cleaning-jobs") {
+            $pageTitle = "Teaching Jobs in Sweden - English-Speaking Educator Roles";
+            $pageHeadding = "Find Teaching Jobs in Sweden";
+            $pageDescription = "Browse English-speaking teaching jobs in Sweden. From early childhood education to university teaching positions, discover your next teaching role.";
+        } else if ($slug === "cleaning-jobs") {
             $searchKey = "search?q=cleaning";
-            $pageTitle = "Cleaning jobs in Sweden";
-            $pageHeadding = "Cleaning jobs in Sweden";
-            $pageDescription = "Looking for English-speaking cleaning jobs in Sweden? Discover a variety of cleaning job opportunities that match your experience and availability.";
-        }
-        else if($slug === "babysitting-jobs") {
+            $pageTitle = "Cleaning Jobs in Sweden - English-Speaking Roles Available";
+            $pageHeadding = "Discover Cleaning Jobs in Sweden";
+            $pageDescription = "Find English-speaking cleaning jobs in Sweden. Whether you're looking for part-time or full-time opportunities, explore jobs that match your availability.";
+        } else if ($slug === "babysitting-jobs") {
             $searchKey = "search?q=babysitting";
-            $pageTitle = "Babysitting jobs in Sweden";
-            $pageHeadding = "Babysitting jobs in Sweden";
-            $pageDescription = "Find English-speaking babysitting jobs in Sweden. Explore opportunities to work with families and provide quality childcare services.";
+            $pageTitle = "Babysitting Jobs in Sweden - English-Speaking Childcare Roles";
+            $pageHeadding = "Find Babysitting Jobs in Sweden";
+            $pageDescription = "Explore English-speaking babysitting jobs in Sweden. Provide childcare services to families while building a rewarding career in childcare.";
         } else {
-            $searchKey = "search?q=chef+hotel+restuarant";
-            $pageTitle = "All other jobs";
-            $pageHeadding = "All English speaking jobs";
-            $pageDescription = "Explore various English-speaking job opportunities in Sweden, including roles in hospitality, restaurants, and more.";
+            $searchKey = "search?q=chef+hotel+restaurant";
+            $pageTitle = "English-Speaking Job Opportunities in Sweden";
+            $pageHeadding = "Explore English-Speaking Jobs in Sweden";
+            $pageDescription = "Search a variety of English-speaking job roles in Sweden, from hospitality and culinary jobs to hotel management. Find the right job for your skills.";
         }
+        
         $pageNumber = intval($page ?? 1);
         $pageNumber = $pageNumber == 0 || $pageNumber == "" ? 1 : $pageNumber;
         $pageNumber = max($pageNumber, 1);
@@ -145,9 +143,7 @@ class JobController extends Controller
     }
     public function myFavoriteJobs(Request $request)
     {
-        // Get saved jobs from the request (sent via JavaScript)
         $favoriteJobs = $request->input('favoriteJobs', []);
-
         return view('favorite-jobs', [
             'favoriteJobs' => $favoriteJobs,
         ]);
