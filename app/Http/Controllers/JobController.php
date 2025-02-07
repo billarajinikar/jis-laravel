@@ -24,32 +24,32 @@ class JobController extends Controller
             $searchKey = "search?q=IT+softwaredeveloper+programmer+english";
             $pageTitle = "Top IT and Software Jobs in Sweden - English Speaking positions";
             $pageHeadding = "Find IT and Software Jobs in Sweden";
-            $pageDescription = "Discover high-paying IT and software jobs (Jobba) in Sweden for English-speaking professionals";
+            $pageDescription = "Discover high-paying IT and software jobs (Jobba) in Sweden for English speaking professionals";
         } else if ($slug === "internships") {
             $searchKey = "search?q=Internship";
-            $pageTitle = "Internship Opportunities in Sweden - Kickstart Your Career in 2025";
-            $pageHeadding = "Explore Internships in Sweden";
-            $pageDescription = "Search for exciting English speaking internships in Sweden. Gain hands-on experience, develop new skills, and grow your career with top organizations.";
+            $pageTitle = "Internship Opportunities in Sweden 2025- Kickstart Your Career in 2025";
+            $pageHeadding = "Explore Internships in Sweden - 2025";
+            $pageDescription = "Find English speaking internships in Sweden. Gain hands-on experience, develop new skills, and grow your career with top organizations.";
         } else if ($slug === "teaching-jobs") {
             $searchKey = "search?q=teaching";
-            $pageTitle = "Teaching Jobs in Sweden - English Speaking Educator Roles";
-            $pageHeadding = "Find Teaching Jobs  in Sweden";
+            $pageTitle = "English Teaching Jobs in Sweden";
+            $pageHeadding = "Find Teaching Jobs in Sweden";
             $pageDescription = "Browse Englishspeaking teaching jobs in Sweden. From early childhood education to university teaching positions, discover your next teaching role.";
         } else if ($slug === "cleaning-jobs") {
             $searchKey = "search?q=cleaning";
-            $pageTitle = "Cleaning Jobs in Sweden - English Speaking positions available";
+            $pageTitle = "Cleaning Jobs in Sweden";
             $pageHeadding = "Discover Cleaning Jobs in Sweden";
             $pageDescription = "Find cleaning jobs in Sweden. Whether you're looking for part-time or full-time opportunities, explore English speaking jobs that match your availability.";
         } else if ($slug === "babysitting-jobs") {
             $searchKey = "search?q=babysitting";
             $pageTitle = "Babysitting Jobs in Sweden - English-Speaking Childcare Roles";
             $pageHeadding = "Find Babysitting Jobs in Sweden";
-            $pageDescription = "Explore English speaking babysitting jobs in Sweden. Provide childcare services to families while building a rewarding career in childcare.";
+            $pageDescription = "Find English speaking babysitting jobs in Sweden. Provide childcare services to families while building a rewarding career in childcare.";
         } else {
             $searchKey = "search?q=chef+hotel+restaurant";
-            $pageTitle = "English-Speaking Job Opportunities in Sweden";
-            $pageHeadding = "Explore English-Speaking Jobs in Sweden";
-            $pageDescription = "Search a variety of English-speaking job roles in Sweden, from hospitality and culinary jobs to hotel management. Find the right job for your skills.";
+            $pageTitle = "English Speaking Job Opportunities in Sweden";
+            $pageHeadding = "Explore English Speaking Jobs in Sweden";
+            $pageDescription = "Search a variety of English speaking job roles in Sweden, from hospitality and culinary jobs to hotel management. Find the right job for your skills.";
         }
         
         $pageNumber = intval($page ?? 1);
@@ -68,18 +68,21 @@ class JobController extends Controller
         $homeController = new HomeController();
         $cities = $homeController->getCities();
         $pageType="cat";
+        $metaDescription = $pageDescription;
         //$this->updateTotalJobsCount(slug: $slug, $totalPositions, $pageType);
-        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions'));
+        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions', 'metaDescription'));
 
     }
     public function jobListByCity($slug, $page=1) {
         $searchKey = "search?q=english+".$slug;
         $pageHeadding = "Jobs in ".ucfirst($slug);
-        $pageDescription = "Explore various English-speaking job opportunities in beautiful cities in Sweden.";
+        $pageDescription = "Explore various English speaking job opportunities in beautiful cities in Sweden.";
         $pageNumber = intval($page ?? 1);
         $pageNumber = $pageNumber == 0 || $pageNumber == "" ? 1 : $pageNumber;
         $pageNumber = max($pageNumber, 1);
         $pageTitle = ucfirst($slug)." -".$pageNumber." jobs for English speaking people";
+        $metaDescription = "Find English-speaking jobs in ".ucfirst($slug).". Browse the latest job openings in ".$slug." for expats and international professionals. Apply now!";
+
         $numberOfJobsPerPage = 10;
         $start = $pageNumber * $numberOfJobsPerPage - $numberOfJobsPerPage;
         $end = $numberOfJobsPerPage;
@@ -92,7 +95,7 @@ class JobController extends Controller
         $cities = $homeController->getCities();
         $pageType="city";
         //$this->updateTotalJobsCount($slug, $totalPositions, $pageType);
-        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions'));
+        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions', 'metaDescription'));
     }
     public function jobsBySearch($keyword, $city, $page=1) {
         $searchKey = "search?q=$keyword"."+English+".$city;

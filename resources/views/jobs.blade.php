@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('title', $pageTitle)
+@section('meta')
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="{{ str_replace(' ', ', ', strtolower($pageTitle)) }}, Sweden jobs, English-speaking jobs">    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:image" content="{{ url('images/Logo_JobsinSweden.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta name="twitter:card" content="summary_large_image">
+@endsection
+
 @section('content')
     <div class="container mt-4 mb-5">
         <div class="text-center mb-4">
