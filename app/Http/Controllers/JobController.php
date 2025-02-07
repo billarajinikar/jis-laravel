@@ -24,7 +24,7 @@ class JobController extends Controller
             $searchKey = "search?q=IT+softwaredeveloper+programmer+english";
             $pageTitle = "Top IT and Software Jobs in Sweden - English-Speaking Roles";
             $pageHeadding = "Find IT and Software Jobs in Sweden";
-            $pageDescription = "Discover high-paying IT and software jobs in Sweden for English-speaking professionals. From developers to IT support roles, start your tech career today.";
+            $pageDescription = "Discover high-paying IT and software jobs in Sweden for English-speaking professionals. From developers to IT support roles.";
         } else if ($slug === "internships") {
             $searchKey = "search?q=Internship";
             $pageTitle = "Internship Opportunities in Sweden - Kickstart Your Career";
@@ -69,7 +69,7 @@ class JobController extends Controller
         $cities = $homeController->getCities();
         $pageType="cat";
         //$this->updateTotalJobsCount(slug: $slug, $totalPositions, $pageType);
-        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities'));
+        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions'));
 
     }
     public function jobListByCity($slug, $page=1) {
@@ -92,13 +92,18 @@ class JobController extends Controller
         $cities = $homeController->getCities();
         $pageType="city";
         //$this->updateTotalJobsCount($slug, $totalPositions, $pageType);
-        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities'));
+        return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions'));
     }
     public function jobsBySearch($keyword, $city, $page=1) {
         $searchKey = "search?q=$keyword"."+English+".$city;
         $cityKeyword = ($city==='all')?'All over Sweden':$city;
         $keywordforTitle = ($keyword==='all')?'Jobs ':$keyword;
-        $pageTitle = ucfirst($keyword)." jobs in ".$city;
+        if($city === 'all') {
+            $pageTitle = ucfirst($keyword)." jobs";
+        } else {
+            $pageTitle = ucfirst($keyword)." jobs in ".$city; 
+        }
+        
         $pageDescription = "Explore various English-speaking job opportunities in beautiful cities in Sweden.";
         $pageNumber = intval($page ?? 1);
         $pageNumber = $pageNumber == 0 || $pageNumber == "" ? 1 : $pageNumber;
@@ -113,7 +118,7 @@ class JobController extends Controller
         $jobs = $jobListRespo['hits'];
         $homeController = new HomeController();
         $cities = $homeController->getCities();
-        return view('search_results', compact("jobs", 'page', 'totalPages', 'keyword', 'city', 'pageTitle', 'pageDescription', 'cities'));
+        return view('search_results', compact("jobs", 'page', 'totalPages', 'keyword', 'city', 'pageTitle', 'pageDescription', 'cities', 'totalPositions'));
 
     }
     public function showJob($title, $id) {

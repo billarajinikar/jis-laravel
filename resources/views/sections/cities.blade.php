@@ -8,10 +8,10 @@
             <div class="col-md-3 mb-4">
                 <div class="card city-card border-0 shadow-sm">
                     <div class="position-relative">
-                        <a href="{{ $city['link'] }}">
+                        <a href="{{ $city['link'] }}" style="text-decoration:none">
                             <img loading="lazy" src="{{ asset($city['image']) }}" class="card-img-top" alt="{{ $city['name'] }}">
                             <div class="city-overlay">
-                                <h4 class="city-title">{{ $city['name'] }}</h4>
+                                <h4 class="city-title">{{ $city['name'] }} ({{ $city['total_jobs'] ?? "" }})</h4>
                             </div>
                         </a>
                     </div>
