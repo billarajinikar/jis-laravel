@@ -8,7 +8,7 @@
                         <a href="{{ $category['link'] }}">
                             <img loading="lazy" src="{{ asset($category['image']) }}" class="card-img-top" alt="{{ $category['name'] }}">
                             <div class="category-overlay">
-                                <h4 class="category-title">{{ $category['name'] }}</h4>
+                                <h4 class="category-title">{{ $category['name'] }} ({{ $category['total_jobs'] ?? "" }})</h4>
                             </div>
                         </a>
                     </div>

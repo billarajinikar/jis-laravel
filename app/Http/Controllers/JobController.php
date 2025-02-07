@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Cache;
 use App\Models\BlogPost;
+use DB;
 
 
 class JobController extends Controller
@@ -66,6 +68,7 @@ class JobController extends Controller
         $homeController = new HomeController();
         $cities = $homeController->getCities();
         $pageType="cat";
+        //$this->updateTotalJobsCount(slug: $slug, $totalPositions, $pageType);
         return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities'));
 
     }
@@ -88,8 +91,8 @@ class JobController extends Controller
         $homeController = new HomeController();
         $cities = $homeController->getCities();
         $pageType="city";
+        //$this->updateTotalJobsCount($slug, $totalPositions, $pageType);
         return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities'));
-
     }
     public function jobsBySearch($keyword, $city, $page=1) {
         $searchKey = "search?q=$keyword"."+English+".$city;
@@ -137,9 +140,21 @@ class JobController extends Controller
         $jobListRespo = $this->connectJobtechAPI($searchKey);
         return $similarJobs = $jobListRespo['hits'];
     }
+    public function updateTotalJobsCount($slug, $totalPositions, $pageType) {
+        $cacheKey = "total_jobs_{$pageType}_{$slug}";
+        DB::table('total_jobs')->updateOrInsert(
+            ['slug' => $slug, 'page_type' => $pageType],
+            [
+                'total_jobs' => $totalPositions,
+                'status' => 1,
+                'created_at' => DB::raw('IFNULL(created_at, NOW())'),
+                'updated_at' => now()
+            ]
+        );
+        
+        Cache::put($cacheKey, $totalPositions, now()->addHours(24));
 
-    public function findaJob() {
-
+       // Cache::put($cacheKey, $totalPositions, now()->addHours(24));
     }
     public function myFavoriteJobs(Request $request)
     {
