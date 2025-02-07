@@ -12,7 +12,8 @@
 @section('content')
     <div class="container mt-4 mb-5">
         <div class="text-center mb-4">
-            <h1 class="display-4">{{$pageHeadding}} ({{$totalPositions}} - jobs available )</h1>
+            <h1 class="display-4">{{$pageHeadding}}</h1>
+            <h4>({{$totalPositions}} - jobs available )</h4>
             <p class="lead">{{$pageDescription}}</p>
         </div>
         @include('sections.searchbox', ['cities' => $cities])
