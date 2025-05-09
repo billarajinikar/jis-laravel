@@ -7,7 +7,15 @@
     
     <!-- Meta Tags -->
     @yield('meta') 
-    <title>@yield(section: 'title') - JobsinSweden.se</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="@yield('meta_description', 'Find English-speaking jobs in Sweden. Explore career opportunities and helpful resources for expats, students, and newcomers.')">
+        <meta property="og:title" content="@yield('title', 'Jobs in Sweden')">
+        <meta property="og:description" content="@yield('meta_description', 'Explore job listings and guides for working in Sweden.')">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:image" content="{{ asset('images/social-preview.png') }}">
+        <title>@yield('title', 'Jobs in Sweden - Find Your Next Opportunity')</title>
 
         <link rel="icon" href="/images/favicon.png" sizes="32x32" type="image/png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

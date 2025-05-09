@@ -34,10 +34,22 @@ Route::post('/cast-vote', [FAQController::class, 'store'])->name('cast-vote');
 
 
 
-Route::get('/cat/{slug}/{page?}', action: [JobController::class, 'jobListByCategory'])->name('jobList');
-Route::get('/city/{slug}/{page?}', action: [JobController::class, 'jobListByCity'])->name('jobListCity');
-Route::get('/job/{title}/{id}', action: [JobController::class, 'showJob'])->name('jobs.show');
-Route::get('/search/{keyword}/{city}/{page?}', action: [JobController::class, 'jobsBySearch'])->name('jobSearch');
+Route::get('/cat/{slug}/{page?}', action: [JobController::class, 'jobListByCategory'])
+    ->name('jobList');
+Route::get('/city/{slug}/{page?}', action: [JobController::class, 'jobListByCity'])
+    ->where('slug', '(?!^\d+$)^[A-Za-z0-9\-]+$')
+    ->name('jobListCity');
+
+Route::get('/job/{title}/{id}', action: [JobController::class, 'showJob'])
+    ->where('title', '(?!^\d+$)^[A-Za-z0-9\-]+$')
+    ->name('jobs.show');
+
+Route::get('/search/{keyword}/{city}/{page?}', [JobController::class, 'jobsBySearch'])
+    ->where('keyword', '(?!^\d+$)^[A-Za-z0-9\-]+$')
+    ->where('city', '(?!^\d+$)^[A-Za-z0-9\-]+$')
+    ->where('page', '[0-9]+')
+    ->name('jobSearch');
+
 
 Route::get('/blog', [BlogPostController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', action: [BlogPostController::class, 'show'])->name('blog.show');

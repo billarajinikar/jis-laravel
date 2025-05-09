@@ -98,6 +98,7 @@ class JobController extends Controller
         return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions', 'metaDescription'));
     }
     public function jobsBySearch($keyword, $city, $page=1) {
+        
         $searchKey = "search?q=$keyword"."+English+".$city;
         $cityKeyword = ($city==='all')?'All over Sweden':$city;
         $keywordforTitle = ($keyword==='all')?'Jobs ':$keyword;
@@ -116,6 +117,10 @@ class JobController extends Controller
         $end = $numberOfJobsPerPage;
         $searchKey = $searchKey . "&offset=$start&limit=$end&sort=pubdate-desc";
         $jobListRespo = $this->connectJobtechAPI($searchKey);
+
+        if (isset($jobListRespo['errors']['offset'])) {
+            return abort(404);
+        }
         $totalPositions = $jobListRespo["total"]["value"];
         $totalPages = ceil($totalPositions/$numberOfJobsPerPage);
         $jobs = $jobListRespo['hits'];
