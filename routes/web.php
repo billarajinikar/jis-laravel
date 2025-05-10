@@ -37,7 +37,7 @@ Route::post('/cast-vote', [FAQController::class, 'store'])->name('cast-vote');
 Route::get('/cat/{slug}/{page?}', action: [JobController::class, 'jobListByCategory'])
     ->name('jobList');
 Route::get('/city/{slug}/{page?}', action: [JobController::class, 'jobListByCity'])
-    ->where('slug', '(?!^\d+$)^[A-Za-z0-9\-]+$')
+    //->where('slug', '(?!^\d+$)^[A-Za-z0-9\-]+$')
     ->name('jobListCity');
 
 Route::get('/job/{title}/{id}', action: [JobController::class, 'showJob'])
