@@ -44,9 +44,9 @@ Route::get('/job/{title}/{id}', action: [JobController::class, 'showJob'])
     ->name('jobs.show');
 
 Route::get('/search/{keyword}/{city}/{page?}', [JobController::class, 'jobsBySearch'])
-    ->where('keyword', '(?!^\d+$)^[A-Za-z0-9\-]+$')
+   /*  ->where('keyword', '(?!^\d+$)^[A-Za-z0-9\-]+$')
     ->where('city', '(?!^\d+$)^[A-Za-z0-9\-]+$')
-    ->where('page', '[0-9]+')
+    ->where('page', '[0-9]+') */
     ->name('jobSearch');
 
 

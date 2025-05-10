@@ -98,7 +98,10 @@ class JobController extends Controller
         return view('jobs', compact("jobs", 'page', 'totalPages', 'slug', 'pageTitle', 'pageHeadding', 'pageDescription', 'pageType', 'cities', 'totalPositions', 'metaDescription'));
     }
     public function jobsBySearch($keyword, $city, $page=1) {
-        
+        if (ctype_digit($keyword) || ctype_digit($city)) {
+            return abort(404); // or redirect('/404');
+        }
+        $keyword = $this->sanitizeKeyword($keyword);
         $searchKey = "search?q=$keyword"."+English+".$city;
         $cityKeyword = ($city==='all')?'All over Sweden':$city;
         $keywordforTitle = ($keyword==='all')?'Jobs ':$keyword;
@@ -176,5 +179,14 @@ class JobController extends Controller
             'favoriteJobs' => $favoriteJobs,
         ]);
     }
+    private function sanitizeKeyword($keyword)
+    {
+        $keyword = str_replace('-', ' ', $keyword);
+        $unwanted = ['job', 'jobs', 'openings', 'positions', 'vacancies', 'jobba', 'jobb'];
+        $words = explode(' ', strtolower($keyword));
+        $filtered = array_filter($words, fn($word) => !in_array($word, $unwanted));
+        return trim(implode(' ', $filtered));
+    }
+
     
 }
