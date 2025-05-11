@@ -22,9 +22,10 @@ class JobController extends Controller
     public function jobListByCategory($slug, $page=1) {
         if ($slug === "it-software-jobs") {
             $searchKey = "search?q=IT+softwaredeveloper+programmer+english";
-            $pageTitle = "Top IT and Software Jobs in Sweden - English Speaking positions";
-            $pageHeadding = "Find IT and Software Jobs in Sweden";
-            $pageDescription = "Discover high-paying IT and software jobs (Jobba) in Sweden for English speaking professionals";
+            $pageTitle = "High-Paying IT & Software Jobs in Sweden – English-Speaking Roles";
+            $pageHeadding = "Explore IT and Software Careers in Sweden";
+            $pageDescription = "Browse top IT and software job opportunities in Sweden for English-speaking professionals. Find developer, DevOps, and tech roles in leading Swedish companies.";
+
         } else if ($slug === "internships") {
             $searchKey = "search?q=Internship";
             $pageTitle = "Internship Opportunities in Sweden 2025- Kickstart Your Career in 2025";
@@ -106,12 +107,12 @@ class JobController extends Controller
         $cityKeyword = ($city==='all')?'All over Sweden':$city;
         $keywordforTitle = ($keyword==='all')?'Jobs ':$keyword;
         if($city === 'all') {
-            $pageTitle = ucfirst($keyword)." jobs";
+            $pageTitle = ucfirst($keyword)." jobs in Sweden";
         } else {
             $pageTitle = ucfirst($keyword)." jobs in ".$city; 
         }
         
-        $pageDescription = "Explore various English-speaking job opportunities in beautiful cities in Sweden.";
+        $pageDescription = "Explore a range of English-speaking ".$searchKey." job opportunities across beautiful cities in Sweden.";
         $pageNumber = intval($page ?? 1);
         $pageNumber = $pageNumber == 0 || $pageNumber == "" ? 1 : $pageNumber;
         $pageNumber = max($pageNumber, 1);
